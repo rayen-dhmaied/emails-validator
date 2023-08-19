@@ -10,7 +10,7 @@ Since It's free and unlimited consider using it on your emails list before using
 
 Firstly, install `dnspython` library using `pip install dnspython` command then run the script using `python validate_emails.py`.
 
-Enter threads number. While choosing the threads number, consider your cpu and network capabilities, the higher threads number the least processing time during the execution your maching performance may be affected.
+Enter threads number. While choosing the threads number, consider your cpu and network capabilities, the higher threads number the least processing time but during the execution time your maching performance may be affected.
 
 Finally, Enter the emails list path and wait for the script to finish. The valid emails will be saved in `valid_emails.txt` file.
 
