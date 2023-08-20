@@ -17,24 +17,27 @@ def validate_mx(domain):
         return False
 
 def validate_email(email, result_file):
-    _, domain = email.split('@')
-    if domain in approved_domains:
-        with lock:
-            with open(result_file, 'a') as f:
-                f.write(email + '\n')
-                print(f"VALID: {email}")
-        return True
-    else:
-        if validate_regex(email) and validate_mx(domain):
+    if validate_regex(email) :
+        _, domain = email.split('@')
+        if domain in approved_domains:
             with lock:
                 with open(result_file, 'a') as f:
                     f.write(email + '\n')
-                approved_domains.append(domain)
-                print(f"VALID: {email}")
-            return True
+                    print(f"VALID: {email}")
+                    return True
         else:
-            print(f"INVALID: {email}")
-            return False
+            if validate_mx(domain):
+                with lock:
+                    with open(result_file, 'a') as f:
+                        f.write(email + '\n')
+                        approved_domains.append(domain)
+                        print(f"VALID: {email}")
+                        return True
+            else:
+                print(f"INVALID: {email}")
+                return False
+    print(f"INVALID: {email}")
+    return False
 
 def validate_emails_multithreaded(emails, num_threads, result_file):
     def validate_worker(email):
